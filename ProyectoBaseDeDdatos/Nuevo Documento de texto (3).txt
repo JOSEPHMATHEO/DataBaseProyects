@@ -1,0 +1,80 @@
+ID_Empleado -> Nombre, Apellido
+
+ID_Venta -> Fecha, Monto_Total
+
+ID_Curso -> Nombre_Curso | ID_Profesor -> Titulo_Profesor
+
+ISBN -> QR_Libro 
+
+ID_Reservacion -> Fecha_Reservacion ,Habitacion, Camas_Habitacion
+
+
+=====================================================================================================
+
+ID_Orden -> Fecha_Orden
+ID_Cliente -> Nombre_Cliente
+ID_Producto -> NOmbre_Producto, Cantidad, Precio_Unitario
+
+=============================================================================================
+
+EJERCICIO 1: 
+
+Si necesitan normalizarse 
+ID_Paciente -> Nombre, Apellido, Fecha_Nacimiento
+ID_Doctor -> Nombre_Doctor, Especialidad_Doctor
+
+EJERCICIO 2: 
+
+ID_Producto -> Nombre_Producto, Precio
+Categoria -> Proveedor, Fecha_Ultimo_Pedido
+
+
+EJERCICIO 3:
+
+ID_Curso -> Nombre_Curso, ID_Profesor
+ID_Profesor -> Nombre_Profesor, Titulo_Profesor, Departamento
+
+EJERCICIO 4:
+
+La tabla no esta estructurada de manera optima
+
+Numero_Vuelo -> Fecha, Destino, ID_Piloto, Tipo_Aeronave
+ID_Piloto -> Nombre_Piloto, Horas_Vuelo_Piloto
+
+EJERCICIO 5:   
+
+ID_Empleado -> Nombre, Apellido, Fecha_Ingreso
+ID_Departamento -> Nombre_Deparatamento, Ubicaion_Departamento
+
+Podria haber confusion al actualizar los datos y podrian perderse posibles dependencias a la hora de eliminarse 
+
+
+===========================================================================================
+Ejercicio 1:
+
+Precio -> depende completamente de la clave compuesta
+
+Ejercicio 2:
+
+Nombre_Curso -> no depende completamente de la clave compuesta, solamente de ID_Curso
+Nombre_Profesor -> no depende completamente de la clave compuesta, solamente de ID_Profesor
+
+Ejercicio 3:
+
+Rol -> depende completamente de la clave compuesta 
+Horas_Trabajadas -> depende completamente de la clave compuesta 
+
+Ejercicio 4:
+
+Cantidad -> Depende completamente de la clave compuesta
+Precio_Total -> Depende completamente de la clave compuesta
+
+Ejercicio 5:
+
+Hora_Salida -> Depende completamente de la clave compuesta
+Hora_Llegada -> Depende completamente de la clave compuesta
+Dias_Operacion -> Depende parcialmente de la clave compuesta(ID_Ruta)
+
+=================================================================================================================================================================
+
+

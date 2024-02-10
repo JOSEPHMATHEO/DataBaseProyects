@@ -1,0 +1,9 @@
+a) Selecciona los departamentos de Administracion y los salarios mayores a 25000 O los departamentos de Investigacion y los salarios mayores a 30000 
+
+b) Proyecta los primeros nombre, segundos nombre, salarios de los empleados
+
+c) Proyecta los sexo y salarios de los empleados
+
+1) Se le asigna a la relacion RESULT un proyeccion con los primeros nombres, segundos nombres, salarios de los empleados del departamento de Investigacion 
+
+2) A las columnas relacion RESULT se las renombrea

@@ -1,0 +1,108 @@
+1)
+
+SELECT Orders.OrderID, Employees.LastName, Customers.CustomerName, Customers.City
+FROM Orders
+	INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID
+	INNER JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID
+WHERE Customers.City LIKE 'B%'
+
+
+2)
+
+SELECT c.CustomerID, c.CustomerName
+FROM Customers c
+WHERE c.CustomerID > 
+	(SELECT COUNT(o.OrderID) AS TotalPedidosRealizados
+	FROM Orders o)
+
+
+SELECT Products.ProductName FROM Products
+RIGHT JOIN OrderDetails ON Products.ProductID = OrderDetails.ProductID
+WHERE OrderDetails.OrderID IS NULL;
+
+3)
+
+SELECT s.SupplierID, s.SupplierName
+FROM Suppliers s
+INNER JOIN Products p ON s.SupplierID = p.SupplierID
+GROUP BY s.SupplierID, s.SupplierName
+HAVING AVG(p.Price) > (SELECT AVG(Price) FROM Products); 
+
+4)
+
+SELECT s.SupplierID, p.Price
+FROM Suppliers s
+	INNER JOIN Products p ON s.SupplierID = p.SupplierID
+WHERE p.Price < (
+	SELECT AVG(p.Price)
+	FROM Products p)
+
+
+5)
+
+
+SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate,
+Shippers.ShipperName
+FROM ((Orders
+INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID)
+INNER JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID)
+WHERE Orders.OrderDate >= '1996-10-01' AND Orders.OrderDate <= '1996-12-31'
+ORDER BY Orders.OrderDate
+
+=============================================================================
+
+SELECT p.ProductName, p.CategoryID, COUNT(o.OrderID) AS SalesCount
+
+FROM ((Products p 
+	INNER JOIN OrderDetails od ON p.ProductID = od.ProductID)
+	INNER JOIN Orders o ON od.OrderID = o.OrderID)
+    
+GROUP BY p.ProductID
+
+HAVING COUNT(o.OrderID) > (
+
+	SELECT AVG(OrderCount)
+	FROM (SELECT p.CategoryID, COUNT(o.OrderID) AS OrderCount
+	FROM ((Products p 
+    		INNER JOIN OrderDetails od ON p.ProductID = od.ProductID)
+		INNER JOIN Orders o ON od.OrderID = o.OrderID)
+        
+	GROUP BY p.ProductID, p.CategoryID) AS Subquery
+	WHERE p.CategoryID = Subquery.CategoryID);
+
+6)
+
+SELECT 
+c.CompanyName AS CustomerName, 
+CONCAT(e.FirstName, ' ', e.LastName) AS EmployeeName, 
+SUM(p.UnitPrice * od.Quantity) AS TotalOrder
+FROM Orders o
+JOIN Customers c ON o.CustomerID = c.CustomerID
+JOIN Employees e ON o.EmployeeID = e.EmployeeID
+JOIN OrderDetails od ON o.OrderID = od.OrderID
+JOIN Products p ON od.ProductID = p.ProductID
+GROUP BY o.OrderID;
+
+7)
+
+SELECT c.CompanyName AS CustomerName, 
+CONCAT(e.FirstName, ' ', e.LastName) AS EmployeeName, 
+SUM(p.UnitPrice * od.Quantity) AS TotalOrder
+FROM Orders o
+JOIN Customers c ON o.CustomerID = c.CustomerID
+JOIN Employees e ON o.EmployeeID = e.EmployeeID
+JOIN OrderDetails od ON o.OrderID = od.OrderID
+JOIN Products p ON od.ProductID = p.ProductID
+GROUP BY o.OrderID;
+
+8) 
+
+SELECT p.ProductName FROM Products p
+JOIN OrderDetails od ON p.ProductID = od.ProductID
+JOIN Orders o ON o.OrderID = od.OrderID
+WHERE o.OrderDate BETWEEN '2020-01-01' AND '2020-12-31'
+UNION 
+	SELECT p.ProductName FROM Products p
+	JOIN OrderDetails od ON p.ProductID = od.ProductID
+	JOIN Orders o ON o.OrderID = od.OrderID
+	WHERE o.OrderDate BETWEEN '2020-01-01' AND '2020-12-31'

@@ -1,0 +1,109 @@
+drop database if exists CursosFormacion;
+create database CursosFormacion;
+
+use CursosFormacion;
+
+
+CREATE TABLE Curso(
+
+    codigoCurso INT PRIMARY KEY,
+    nombre VARCHAR(255),
+    descripcion TEXT,
+    horasDuracion INT,
+    coste DECIMAL(10, 2)
+);
+
+
+CREATE TABLE Prerrequisito (
+    cursoPredecesor INT,
+    cursoSucesor INT,
+    tipoPrerrequisito ENUM('Obligatorio', 'Recomendable'),
+    PRIMARY KEY (cursoPredecesor, cursoSucesor),
+    FOREIGN KEY (cursoPredecesor) REFERENCES Curso(codigoCurso),
+    FOREIGN KEY (cursoSucesor) REFERENCES Curso(codigoCurso)
+);
+
+
+CREATE TABLE EdicionCurso (
+    codigoEdicion INT PRIMARY KEY,
+    codigoCurso INT,
+    lugar VARCHAR(255),
+    fechaInicio DATE,
+    horario VARCHAR(50),
+    FOREIGN KEY (codigoCurso) REFERENCES Curso(codigoCurso)
+);
+
+
+CREATE TABLE Empleado (
+    codigoEmpleado INT PRIMARY KEY,
+    nombre VARCHAR(50),
+    apellidos VARCHAR(50),
+    direccion VARCHAR(255),
+    telefono VARCHAR(15),
+    NIF VARCHAR(15),
+    fechaNacimiento DATE,
+    nacionalidad VARCHAR(50),
+    salario DECIMAL(10, 2),
+    capacitado TINYINT(1)
+);
+
+
+CREATE TABLE ImparteCurso (
+    codigoEmpleado INT,
+    codigoEdicion INT,
+    PRIMARY KEY (codigoEmpleado, codigoEdicion),
+    FOREIGN KEY (codigoEmpleado) REFERENCES Empleado(codigoEmpleado),
+    FOREIGN KEY (codigoEdicion) REFERENCES EdicionCurso(codigoEdicion)
+);
+
+
+CREATE TABLE AlumnoCurso (
+    codigoEmpleado INT,
+    codigoEdicion INT,
+    PRIMARY KEY (codigoEmpleado, codigoEdicion),
+    FOREIGN KEY (codigoEmpleado) REFERENCES Empleado(codigoEmpleado),
+    FOREIGN KEY (codigoEdicion) REFERENCES EdicionCurso(codigoEdicion)
+);
+
+
+
+INSERT INTO Curso (codigoCurso, nombre, descripcion, horasDuracion, coste)
+VALUES
+    (1, 'Fundamentos de la Programación', 'Introducción a la programaciónn', 60, 300.00),
+    (2, 'Liderazgo de Proyectos ', 'Principios del liderazgo en proyectos', 60, 250.00),
+    (3, 'Marketing Digital', 'El marketing en la web', 60, 250.00);
+
+
+INSERT INTO Prerrequisito (cursoPredecesor, cursoSucesor, tipoPrerrequisito)
+VALUES
+    (2, 3, 'Obligatorio'),
+    (1, 2, 'Recomendable'),
+    (1, 3, 'Obligatorio');
+
+
+INSERT INTO EdicionCurso (codigoEdicion, codigoCurso, lugar, fechaInicio, horario)
+VALUES
+    (1, 1, 'Loja', '2023-10-01', 'Mañana'),
+    (2, 2, 'Quito', '2023-10-02', 'Tarde'),
+    (3, 3, 'Cuenca', '2023-10-03', 'Intensivo');
+
+
+INSERT INTO Empleado (codigoEmpleado, nombre, apellidos, direccion, telefono, NIF, fechaNacimiento, nacionalidad, salario, capacitado)
+VALUES
+    (100, 'Santiago', 'Jaramillo', 'El Valle', '09991526799', 'A123HH', '2003-10-10', 'Ecuatoriano', 4000.00, 1),
+    (111, 'Kelvin', 'Sarango', 'El Valle', '09991526733', 'A123ZZ', '2003-10-05', 'Ecuatoriano', 4000.00, 1),
+    (122, 'Jhordy', 'Agila', 'Ciudad Victoria', '09991526766', 'A123XX', '2004-10-10', 'Ecuatoriano', 40000.00, 0);
+
+
+INSERT INTO ImparteCurso (codigoEmpleado, codigoEdicion)
+VALUES
+    (100, 1),
+    (111, 2),
+    (122, 3);
+
+
+INSERT INTO AlumnoCurso (codigoEmpleado, codigoEdicion)
+VALUES
+    (100, 1),
+    (111, 2),
+    (122, 3);

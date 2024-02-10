@@ -1,0 +1,82 @@
+2. Usando como base a la siguiente función:
+
+	def countWithoutOpenVowels(word : String) : Int = { 
+   		word.toLowerCase.replaceAll("a", "").replaceAll("e", "").replaceAll("o", "").length
+	}
+
+f) Qué salida genera la función si se invoca con los siguientes valores:
+
+Loja
+Universidad
+Particular
+
+def countWithoutOpenVowels(word : String) : Int = {
+  word.toLowerCase.replaceAll("a", "").replaceAll("e", "").replaceAll("o", "").length
+}
+
+val l = countWithoutOpenVowels("Loja")
+val u = countWithoutOpenVowels("Universidad")
+val p = countWithoutOpenVowels("Particular")
+
+println("\nPalabras Abiertas")
+println("La palabra Loja le quedan: "+ l + " caracteres")
+println("La palabra Universidad le quedan: "+ u + " caracteres")
+println("La palabra Particular le quedan: "+ p + " caracteres")
+
+
+
+3. Modifiquen la función anterior para que ahora devuelva el texto que recibe como párametro, pero sin los vocales cerradas (i y u)
+
+def countWithoutCloseVowels(word : String) : Int = {
+  word.toLowerCase.replaceAll("i", "").replaceAll("i", "").length
+}
+
+4. Transformen a las funciones de los puntos 2 y 3 en funciones sin nombre.
+
+val vowelO = (word : String) =>
+  word.toLowerCase.replaceAll ("a", "").replaceAll ("e", "").replaceAll ("o", "").length
+
+
+val vowelC = (word : String) =>
+  word.toLowerCase.replaceAll("i", "").replaceAll("u", "").length
+
+
+5. Ejecuten cada una de las funciones sin nombre, creadas en el punto 4, con los parámetros que se listan en el punto 2 y literal f.
+
+val vowelO = (word : String) =>
+  word.toLowerCase.replaceAll ("a", "")
+    .replaceAll ("e", "").replaceAll ("o", "").length
+
+println("\nPalabras Abiertas")
+println("La palabra Loja le quedan: "+ vowelO("Loja") + " caracteres")
+println("La palabra Universidad le quedan: "+ vowelO("Universidad") + " caracteres")
+println("La palabra Particular le quedan: "+ vowelO("Particular") + " caracteres")
+
+
+val vowelC = (word : String) =>
+  word.toLowerCase.replaceAll("i", "").
+    replaceAll("u", "").length
+
+println("\nPalabras Cerradas")
+println("La palabra Loja le quedan: "+ vowelC("Loja") + " caracteres")
+println("La palabra Universidad le quedan: "+ vowelC("Universidad") + " caracteres")
+println("La palabra Particular le quedan: "+ vowelC("Particular") + " caracteres")
+
+
+
+6.Usando como base el código del punto 2, traten de crear una función sin nombre que reciba como párametros el texto y una letra que se desea omitir (reemplazar por cadena vacía) y que devuelve la longitud del nuevo texto.
+
+val vowelO = (word : String, l1: String) =>
+  word.toLowerCase.replaceAll (l1, "").length
+
+println("\nPalabra sin una letra")
+
+println("\n" + vowelO("Loja","a"))
+
+
+7.Modifiquen el código del punto 6 para que esta vez devuelve true si la longitud del texto (valor devuelto en función anterior) es par, caso contrario devuelva false.
+
+val vowelO = (word : String, l1: String) =>
+  word.toLowerCase.replaceAll (l1, "").length % 2 == 0
+
+println("\nPalabra sin una letra")

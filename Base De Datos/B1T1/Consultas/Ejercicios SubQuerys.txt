@@ -1,0 +1,94 @@
+Encontrar los productos cuyo precio sea mayor al promedio de todos los precios de los productos:
+
+SELECT *
+FROM Products 
+WHERE Price > (SELECT AVG(Price) FROM Products)
+ORDER BY Price DESC;
+
+Listar los empleados que han realizado más pedidos que el promedio de pedidos por empleado:  
+
+SELECT e.EmployeeID, e.FirstName, e.LastName, tmp1.OrdenPorEmpleado
+FROM (SELECT EmployeeID, COUNT(OrderID) AS OrdenPorEmpleado  
+             FROM Orders
+             GROUP BY EmployeeID) tmp1 
+INNER JOIN employees e ON tmp1.EmployeeID = e.EmployeeID
+WHERE OrdenPorEmpleado > (SELECT AVG(OrdenPorEmpleado)
+                           FROM (SELECT COUNT(OrderID) AS OrdenPorEmpleado
+                                 FROM Orders 
+                                 GROUP BY EmployeeID) tmp2);
+
+Mostrar los clientes que han realizado pedidos por un monto total mayor al promedio:  
+
+SELECT *
+FROM (SELECT c.CustomerID, c.CustomerName, SUM(j1.suma) AS Sumatoria   
+      FROM Orders o
+      INNER JOIN Customers c ON o.CustomerID = c.CustomerID
+      INNER JOIN  
+         (SELECT OrderID, SUM(Price * Quantity) AS suma
+          FROM OrderDetails od  
+          INNER JOIN Products p ON od.ProductID = p.ProductID
+          GROUP BY OrderID) AS j1 ON j1.OrderID = o.OrderID
+      GROUP BY c.CustomerID) tmp1  
+WHERE Sumatoria >  
+     (SELECT AVG(Sumatoria)
+      FROM  
+         (SELECT SUM(j1.suma) AS Sumatoria 
+          FROM Orders o   
+          INNER JOIN
+             (SELECT OrderID, SUM(Price * Quantity) AS suma 
+              FROM OrderDetails
+              INNER JOIN Products p ON OrderDetails.ProductID = p.ProductID
+              GROUP BY OrderID) AS j1 ON j1.OrderID = o.OrderID
+          GROUP BY CustomerID) tmp2);
+
+Seleccionar los proveedores cuyos productos tienen un precio menor al precio promedio de todos los productos:  
+
+SELECT s.*, p.ProductID, p.ProductName, p.Price   
+FROM products p
+INNER JOIN suppliers s ON p.SupplierID = s.SupplierID 
+WHERE p.Price < (SELECT AVG(Price) FROM products);  
+
+
+
+
+Identificar los productos que no están en stock actualmente (UnitsInStock igual a 0):
+
+No se puede realizar porque no existe el campo UnitsInStock.
+
+
+
+
+Encontrar los clientes que no han hecho ningún pedido:
+
+SELECT c.*  
+FROM customers c
+WHERE c.CustomerID NOT IN (SELECT o.CustomerID FROM orders o);
+
+
+
+
+Seleccionar los productos cuyo stock sea superior al stock promedio de todos los productos:  
+
+No se puede realizar porque no existe el campo de stock.
+  
+Listar los empleados que han atendido más pedidos que el empleado que ha atendido menos pedidos:
+
+SELECT EmployeeID, COUNT(OrderID) AS NOrders 
+FROM orders
+GROUP BY EmployeeID
+HAVING COUNT(OrderID) > (SELECT MIN(NOrders)  
+                         FROM (SELECT COUNT(OrderID) AS NOrders
+                               FROM orders
+                               GROUP BY EmployeeID) tmp);
+
+Mostrar los productos que tienen un precio superior al precio más bajo de los productos de su categoría:   
+
+SELECT *
+FROM products  
+WHERE Price NOT IN (SELECT MIN(Price)
+                    FROM products
+                    GROUP BY CategoryID);
+                    
+Encontrar los proveedores que suministran al menos un producto que no tenga descuento (Discount = 0 en Order Details):   
+
+No se puede realizar según el documento porque no existe el campo Discount

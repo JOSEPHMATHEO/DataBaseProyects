@@ -1,0 +1,434 @@
+1) Escribir una consulta que muestre todos los pedidos y el nombre de
+la compañía de los clientes que los hicieron.
+
+SELECT Orders.OrderID, Customers.CustomerName,
+Shippers.ShipperName
+FROM ((Orders INNER JOIN Customers ON Orders.CustomerID =
+Customers.CustomerID)
+INNER JOIN Shippers ON Orders.ShipperID =
+Shippers.ShipperID);
+
+---------------------------------------------------------------------------------------
+
+SELECT o.*, c.CustomerName
+FROM Orders o
+	IINER JOIN Customers c ON o.CustomerID =c,CustomerID
+ORDER BY CustomerNmae
+
+- Puedes remplazar el nombre de las tablas para optimizar de mejor manera la consulta
+- Puedes identar de mejor manera la clausula JOIN
+- Puedes usar la clausula ORDER BY para presentar de mejor manera el reporte
+- Puedes asiganr otro nombre a la tabla del reporte
+
+
+
+
+2) Crear una lista de todos los productos junto con la información de
+sus proveedores, incluso si algunos productos no tienen proveedores
+asignados.
+
+SELECT products.ProductID, suppliers.SupplierID,
+suppliers.SupplierName, suppliers.ContactName,
+suppliers.Address, suppliers.City, suppliers.PostalCode,
+suppliers.Country, suppliers.Phone
+FROM products LEFT JOIN suppliers ON products.SupplierID =
+suppliers.SupplierID;
+
+----------------------------------------------------------------------------------------
+
+
+SELECT *
+FROM Productos p
+	LEFT JOIN Suppliers s ON p.SupplierID = s.SupplierID
+ORDER BY p.Supplier;
+
+- Puedes remplazar el nombre de las tablas para optimizar de mejor manera la consulta
+- Puedes identar de mejor manera la clausula JOIN
+- Puedes usar la clausula ORDER BY para presentar de mejor manera el reporte
+- Puedes asiganr otro nombre a la tabla del reporte
+
+
+
+
+3) Seleccionar todos los empleados y mostrar los pedidos que han
+tomado, incluyendo empleados que no han tomado ningún pedido.
+
+SELECT employees.EmployeeID, orders.OrderID
+FROM employees
+LEFT JOIN orders ON employees.EmployeeID =
+orders.EmployeeID;
+
+---------------------------------------------------------------------------------------
+
+SELECT e.*
+FROM Employee e
+	LEFT JOIN Orders o ON e.EmployeeID
+ORDER BY e.EmployeeID
+
+- Puedes remplazar el nombre de las tablas para optimizar de mejor manera la consulta
+- Puedes identar de mejor manera la clausula JOIN
+- Puedes usar la clausula ORDER BY para presentar de mejor manera el reporte
+- Puedes asiganr otro nombre a la tabla del reporte
+
+
+
+
+4) Obtener los detalles de los pedidos incluyendo el nombre del
+producto, la cantidad y el precio por unidad.
+
+SELECT OrderDetails.OrderDetailID, Products.ProductName,
+OrderDetails.OrderID, OrderDetails.ProductID,
+OrderDetails.Quantity,Orders.OrderDate, Orders.CustomerID,
+Orders.EmployeeID
+FROM ((OrderDetails INNER JOIN Orders ON
+OrderDetails.OrderID = Orders.OrderID) INNER JOIN Products
+ON OrderDetails.ProductID=Products.ProductID)
+
+---------------------------------------------------------------------------------------
+
+SELECT o.OrderDetailID, o.OrderID, o.Quantity, p.ProductID, p.ProductName, p.Price, pPrice * Quantity AS "Subtotal"
+FROM OrdersDetails o
+	INNER JOIN Products p ON o.ProductID = p.ProductID
+
+- Puedes remplazar el nombre de las tablas para optimizar de mejor manera la consulta
+- Puedes identar de mejor manera la clausula JOIN
+- Puedes usar la clausula ORDER BY para presentar de mejor manera el reporte
+- Puedes asiganr otro nombre a la tabla del reporte
+- Puedes agregar un Subtotal a la consulta
+
+
+
+
+5) Encontrar todos los clientes y mostrar detalles de sus pedidos,
+incluyendo aquellos que no han hecho ningún pedido.
+
+SELECT Customers.CustomerName, Orders.OrderID,
+Orders.OrderDate, OrderDetails.OrderDetailID,
+Products.ProductName, OrderDetails.Quantity
+FROM (((Customers LEFT JOIN Orders ON Customers.CustomerID
+= Orders.CustomerID)LEFT JOIN OrderDetails ON
+Orders.OrderID = OrderDetails.OrderID)LEFT JOIN Products
+ON OrderDetails.ProductID = Products.ProductID)
+
+---------------------------------------------------------------------------------------
+
+SELECT c.*, o.OrderID, o.OrderDate
+FROM Orders o
+	RIGHT JOIN Coustomer c ON o.CustomerID = c.CoustomerID
+ORDER BY OrderID
+
+- Puedes remplazar el nombre de las tablas para optimizar de mejor manera la consulta
+- Puedes identar de mejor manera la clausula JOIN
+- Puedes usar la clausula ORDER BY para presentar de mejor manera el reporte
+- Puedes asiganr otro nombre a la tabla del reporte
+
+
+
+
+6) Mostrar todos los envíos y la información de los pedidos asociados,
+incluso si no hay pedidos asociados con algunos envíos.
+
+SELECT Shippers.ShipperID, Shippers.ShipperName,
+OrderDetails.OrderDetailID, OrderDetails.OrderID,
+OrderDetails.ProductID, OrderDetails.Quantity
+FROM ((OrderDetails INNER JOIN Orders ON
+OrderDetails.OrderID = Orders.OrderID)INNER JOIN Shippers
+ON Orders.ShipperID = Shippers.ShipperID)
+
+------------------------------------------------------------------------------------------
+
+SELECT Shippers.ShipperID, Shippers.ShipperName, Orders.OrderID, Orders.CustomerID, Orders.EmployeeID, Orders.OrderDate 
+FROM Orders 
+LEFT JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID;
+
+- Puedes remplazar el nombre de las tablas para optimizar de mejor manera la consulta
+- Puedes identar de mejor manera la clausula JOIN
+- Puedes usar la clausula ORDER BY para presentar de mejor manera el reporte
+- Puedes asiganr otro nombre a la tabla del reporte
+
+
+
+7) Listar todos los empleados y los códigos de territorio donde trabajan.
+Los códigos que se necesitan no existen
+
+- Puedes alterar la tabla y agregar un campo con el codigo de territorio
+
+
+
+8) Mostrar el total de productos que ofrece cada proveedor, incluyendo
+proveedores que no ofrecen productos.
+
+SELECT Suppliers.SupplierID, COUNT(*) AS NumeroProductos
+FROM Products RIGHT JOIN Suppliers ON Products.SupplierID = Suppliers.SupplierID
+GROUP BY Suppliers.SupplierID;
+
+------------------------------------------------------------------------------------------
+
+SELECT COUNT(*)
+FROM Products
+GROUP BY s.SupplierID
+
+SELECT s.SupplierID, count(*) AS "Total de Productos"
+FROM Suppliers s 
+	LEFT JOIN Products p ON s.SupplierID = p.SupplierID 
+GROUP BY s.SupplierID  
+
+
+- Puedes remplazar el nombre de las tablas para optimizar de mejor manera la consulta
+- Puedes identar de mejor manera la clausula JOIN
+- Puedes usar la clausula ORDER BY para presentar de mejor manera el reporte
+- Puedes asiganr otro nombre a la tabla del reporte
+
+
+
+
+9) Listar todas las categorías junto con los productos que pertenecen a
+cada una, incluyendo categorías sin productos.
+
+SELECT Products.ProductID, Categories.CategoryID
+FROM Products RIGHT JOIN Categories ON Products.CategoryID = Categories.CategoryID; (v/)
+
+------------------------------------------------------------------------------------------
+
+SELECT products.ProductID, categories.CategoryID
+FROM products
+RIGHT JOIN categories ON products.CategoryID = categories.CategoryID;
+
+- Puedes remplazar el nombre de las tablas para optimizar de mejor manera la consulta
+- Puedes identar de mejor manera la clausula JOIN
+- Puedes usar la clausula ORDER BY para presentar de mejor manera el reporte
+- Puedes asiganr otro nombre a la tabla del reporte
+
+
+
+
+10)  Obtener una lista de pedidos que incluya el nombre de la compañía
+del cliente y el apellido del empleado que tomó el pedido.
+
+SELECT orders.OrderID, customers.CustomerName,
+employees.LastName
+FROM ((orders 
+	INNER JOIN customers ON orders.CustomerID = customers.CustomerID)
+	INNER JOIN employees ON orders.EmployeeID = employees.EmployeeID);
+
+------------------------------------------------------------------------------------------
+
+SELECT o.OrderID, c.CustomerName, e.LastName
+FROM ((Orders o
+INNER JOIN Customers c ON o.CustomerID = c.CustomerID)
+INNER JOIN Employees e ON o.EmployeeID = e.EmployeeID);
+
+- Puedes remplazar el nombre de las tablas para optimizar de mejor manera la consulta
+- Puedes identar de mejor manera la clausula JOIN
+- Puedes usar la clausula ORDER BY para presentar de mejor manera el reporte
+- Puedes asiganr otro nombre a la tabla del reporte
+
+
+
+11) Obtener todos los pedidos con la información del cliente, incluyendo
+el nombre de la compañía del cliente.
+
+SELECT orders.OrderID, customers.CustomerID,
+customers.CustomerName, customers.ContactName,
+customers.Address, customers.City, customers.PostalCode,
+customers.Country
+FROM orders INNER JOIN customers ON orders.CustomerID =
+customers.CustomerID;
+
+------------------------------------------------------------------------------------------
+
+SELECT Orders.OrderID, Customers.CustomerName AS CustomerCompanyName, Customers.ContactName, Customers.Address, Customers.City, Customers.PostalCode, Customers.Country
+FROM Orders INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID
+
+- Puedes remplazar el nombre de las tablas para optimizar de mejor manera la consulta
+- Puedes identar de mejor manera la clausula JOIN
+- Puedes usar la clausula ORDER BY para presentar de mejor manera el reporte
+- Puedes asiganr otro nombre a la tabla del reporte
+
+
+
+
+12) Listar todos los productos junto con la información del proveedor.
+Incluir productos que no tienen proveedor asignado.
+
+SELECT Products.ProductName, Suppliers.SupplierName,
+Suppliers.ContactName, Suppliers.Address, Suppliers.City,
+Suppliers.PostalCode, Suppliers.Country, Suppliers.Phone
+FROM Products LEFT JOIN Suppliers ON Products.SupplierID =
+Suppliers.SupplierID
+
+------------------------------------------------------------------------------------------
+
+SELECT Products.ProductName, Suppliers.SupplierName, Suppliers.ContactName, Suppliers.Address, Suppliers.City, Suppliers.PostalCode, Suppliers.Country, Suppliers.Phone
+FROM Products 
+	LEFT JOIN Suppliers ON Products.SupplierID = Suppliers.SupplierID
+
+- Puedes remplazar el nombre de las tablas para optimizar de mejor manera la consulta
+- Puedes identar de mejor manera la clausula JOIN
+- Puedes usar la clausula ORDER BY para presentar de mejor manera el reporte
+- Puedes asiganr otro nombre a la tabla del reporte
+
+
+
+
+13) Mostrar una lista de todos los empleados junto con los pedidos que
+han gestionado, incluir también empleados que no han gestionado
+ningún pedido
+
+SELECT Employees.EmployeeID, Employees.FirstName,
+Employees.LastName, Orders.OrderID, Orders.OrderDate
+FROM Employees LEFT JOIN Orders ON Employees.EmployeeID =
+Orders.EmployeeID
+
+------------------------------------------------------------------------------------------
+
+SELECT employees.EmployeeID, orders.OrderID 
+FROM orders 
+	RIGHT JOIN employees ON orders.EmployeeID = employees.EmployeeID
+ORDER BY OrderID;
+
+- Puedes remplazar el nombre de las tablas para optimizar de mejor manera la consulta
+- Puedes identar de mejor manera la clausula JOIN
+- Puedes usar la clausula ORDER BY para presentar de mejor manera el reporte
+- Puedes asiganr otro nombre a la tabla del reporte
+
+
+
+
+14) Seleccionar todos los detalles de los pedidos, incluyendo el nombre
+del producto, la cantidad y el precio por unidad.
+
+SELECT Products.ProductName, OrderDetails.OrderID,
+OrderDetails.ProductID , OrderDetails.Quantity
+FROM ((OrderDetails INNER JOIN Products ON
+OrderDetails.ProductID = Products.ProductID)INNER JOIN
+Orders ON OrderDetails.OrderID = Orders.OrderID)
+
+------------------------------------------------------------------------------------------
+
+SELECT orderdetails.OrderID, orderdetails.ProductID, orderdetails.Quantity, products.ProductName, products.Price
+FROM orderdetails 
+	INNER JOIN products ON orderdetails.ProductID = products.ProductID;
+
+- Puedes remplazar el nombre de las tablas para optimizar de mejor manera la consulta
+- Puedes identar de mejor manera la clausula JOIN
+- Puedes usar la clausula ORDER BY para presentar de mejor manera el reporte
+- Puedes asiganr otro nombre a la tabla del reporte
+
+
+
+
+15) Encontrar todos los clientes, incluir detalles de sus pedidos, y
+mostrar aquellos que no han hecho ningún pedido
+
+SELECT Customers.CustomerID, Customers.CustomerName,
+Customers.ContactName, Customers.Address, Customers.City,
+Customers.PostalCode, Customers.Country, Orders.OrderID,
+Orders.OrderDate, OrderDetails.OrderDetailID,
+OrderDetails.ProductID, OrderDetails.Quantity
+FROM ((Customers LEFT JOIN Orders ON Customers.CustomerID
+= Orders.CustomerID)LEFT JOIN OrderDetails ON
+Orders.OrderID = OrderDetails.OrderID)
+
+------------------------------------------------------------------------------------------
+
+SELECT customers.CustomerID, orders.OrderID, orders.EmployeeID, orders.OrderDate, orders.ShipperID
+FROM customers 
+	RIGHT JOIN orders ON customers.CustomerID = orders.CustomerID
+ORDER BY OrderID;
+
+- Puedes remplazar el nombre de las tablas para optimizar de mejor manera la consulta
+- Puedes identar de mejor manera la clausula JOIN
+- Puedes usar la clausula ORDER BY para presentar de mejor manera el reporte
+- Puedes asiganr otro nombre a la tabla del reporte
+
+
+
+
+16) Mostrar todos los envíos, incluir la información de los pedidos,
+incluso si no hay ningún pedido asociado al envío.
+
+SELECT Shippers.ShipperID, Orders.OrderID,
+Orders.CustomerID, Orders.EmployeeID, Orders.OrderDate
+FROM Shippers LEFT JOIN Orders ON Shippers.ShipperID =
+Orders.ShipperID
+
+------------------------------------------------------------------------------------------
+
+SELECT shippers.ShipperID, orders.OrderID, orders.CustomerID, orders.EmployeeID, orders.OrderDate
+FROM shippers 
+	LEFT JOIN orders ON shippers.ShipperID = orders.ShipperID;
+
+- Puedes remplazar el nombre de las tablas para optimizar de mejor manera la consulta
+- Puedes identar de mejor manera la clausula JOIN
+- Puedes usar la clausula ORDER BY para presentar de mejor manera el reporte
+- Puedes asiganr otro nombre a la tabla del reporte
+
+
+
+
+17) Mostrar la cantidad de productos que ofrece cada proveedor, incluir
+proveedores que no ofrecen productos.
+
+SELECT suppliers.SupplierID, COUNT(*) AS TotalProductos
+FROM products RIGHT JOIN suppliers ON products.SupplierID =
+suppliers.SupplierID
+GROUP BY NumeroProductos
+
+------------------------------------------------------------------------------------------
+
+SELECT suppliers.SupplierID, COUNT(*) AS TotalProductos
+FROM products 
+	RIGHT JOIN suppliers ON products.SupplierID = suppliers.SupplierID
+GROUP BY suppliers.SupplierID
+ORDER BY TotalProductos;
+
+- Puedes remplazar el nombre de las tablas para optimizar de mejor manera la consulta
+- Puedes identar de mejor manera la clausula JOIN
+- Puedes usar la clausula ORDER BY para presentar de mejor manera el reporte
+- Puedes asiganr otro nombre a la tabla del reporte
+
+
+
+
+18) Listar todas las categorías, incluyendo todos los productos asociados
+a cada categoría, incluso categorías sin productos.
+
+SELECT Categories.CategoryNamE, Products.ProductName
+FROM Categories LEFT JOIN Products ON Categories.CategoryID =
+Products.CategoryID
+
+------------------------------------------------------------------------------------------
+
+SELECT products.ProductID, categories.CategoryID
+FROM products 
+	RIGHT JOIN categories ON products.CategoryID = categories.CategoryID;
+
+- Puedes remplazar el nombre de las tablas para optimizar de mejor manera la consulta
+- Puedes identar de mejor manera la clausula JOIN
+- Puedes usar la clausula ORDER BY para presentar de mejor manera el reporte
+- Puedes asiganr otro nombre a la tabla del reporte
+
+
+
+
+19) Obtener una lista de todos los pedidos, incluyendo el nombre de la
+compañía del cliente y el nombre del transportista.
+
+SELECT Orders.OrderID, Customers.CustomerName,
+Shippers.ShipperName
+FROM ((Orders INNER JOIN Customers ON Orders.CustomerID =
+Customers.CustomerID)
+INNER JOIN Shippers ON Orders.ShipperID =
+
+------------------------------------------------------------------------------------------
+
+SELECT orders.OrderID, customers.CustomerName, shippers.ShipperName
+FROM ((orders 
+	INNER JOIN customers ON orders.CustomerID = customers.CustomerID)
+	INNER JOIN shippers ON orders.ShipperID = shippers.ShipperID);
+
+- Puedes remplazar el nombre de las tablas para optimizar de mejor manera la consulta
+- Puedes identar de mejor manera la clausula JOIN
+- Puedes usar la clausula ORDER BY para presentar de mejor manera el reporte
+- Puedes asiganr otro nombre a la tabla del reporte

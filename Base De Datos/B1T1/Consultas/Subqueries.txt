@@ -1,0 +1,47 @@
+SELECT s.SupplierID, p.SupplierID, p.Price
+FROM Suppliers s
+	INNER JOIN Products p On s.SupplierID = p.SupplierID
+WHERE Price >= 30
+
+// Posible consulta
+
+SELECT *
+FROM Suppliers
+WHERE SupplierID IN(.,.,.,.,.)
+
+// Consulta
+
+SELECT DISTINCT SupplierID
+FROM Products
+WHERE Price >= 30
+
+SELECT *
+FROM Suppliers
+WHERE SupplierID IN(
+	SELECT DISTINCT SupplierID
+	FROM Products
+	WHERE Price >= 30)
+
+// Consultas q no se pueden hacer 
+
+SELECT * 
+FROM Products 
+WHERE Price > (SELECT AVG(Price) FROM Products GROUP BY CategoryID)
+ORDER BY Price DESC ;
+
+Devuelve mas de una tabla 
+
+SELECT * 
+FROM Products 
+WHERE Price > (SELECT CategoryID, AVG(Price) FROM Products GROUP BY CategoryID)
+ORDER BY Price DESC ;
+
+SELECT EmployeeID, COUNT(OrderID) AS Pedidos
+FROM Orders
+GROUP BY EmployeeID
+HAVING Pedidos > (SELECT AVG(NumeroPedidos) FROM (SELECT EmployeeID, COUNT(OrderID) AS NumeroPedidos FROM Orders GROUP BY EmployeeID) t);
+SELECT EmployeeID, COUNT(OrderID) AS Pedidos
+FROM Orders
+GROUP BY EmployeeID
+HAVING COUNT(OrderID) > 
+	(SELECT AVG(NumeroPedidos) FROM (SELECT EmployeeID, COUNT(OrderID) AS NumeroPedidos FROM Orders GROUP BY EmployeeID) t);

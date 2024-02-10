@@ -1,0 +1,81 @@
+DROP DATABASE IF EXISTS GestionVentas;
+CREATE DATABASE GestionVentas;
+
+USE GestionVentas;
+
+CREATE TABLE Direccion (
+
+    ID INT PRIMARY KEY not null,
+    calle VARCHAR(255),
+    numero INT,
+    comuna VARCHAR(255),
+    ciudad VARCHAR(255)
+    
+);
+
+CREATE TABLE Proveedor (
+
+    CUIT VARCHAR(15) PRIMARY KEY,
+    nombre VARCHAR(255),
+    telefono VARCHAR(15),
+    pagina_web VARCHAR(255),
+    direccion_id INT,
+    FOREIGN KEY (direccion_id) REFERENCES Direccion(ID)
+    
+);
+
+
+CREATE TABLE Cliente (
+    CUIT VARCHAR(15) PRIMARY KEY,
+    nombre VARCHAR(255),
+    direccion INT,
+    FOREIGN KEY (direccion) REFERENCES Direccion(ID)
+);
+
+
+CREATE TABLE Contacto (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    telefono VARCHAR(15),
+    cliente_CUIT VARCHAR(15),
+    FOREIGN KEY (cliente_CUIT) REFERENCES Cliente(CUIT)
+);
+
+CREATE TABLE Categoria (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(255),
+    descripcion TEXT
+);
+
+
+CREATE TABLE Producto (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(255),
+    precio_actual DECIMAL(10, 2),
+    stock INT,
+    proveedor_CUIT VARCHAR(15),
+    categoria_ID INT,
+    FOREIGN KEY (proveedor_CUIT) REFERENCES Proveedor(CUIT),
+    FOREIGN KEY (categoria_ID) REFERENCES Categoria(ID)
+);
+
+
+CREATE TABLE Venta (
+    numero_factura INT PRIMARY KEY AUTO_INCREMENT,
+    fecha DATE,
+    cliente_CUIT VARCHAR(15),
+    descuento DECIMAL(5, 2),
+    monto_final DECIMAL(10, 2),
+    FOREIGN KEY (cliente_CUIT) REFERENCES Cliente(CUIT)
+);
+
+
+CREATE TABLE DetalleVenta (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    precio_venta DECIMAL(10, 2),
+    cantidad_vendida INT,
+    monto_total DECIMAL(10, 2),
+    venta_numero_factura INT,
+    producto_ID INT,
+    FOREIGN KEY (venta_numero_factura) REFERENCES Venta(numero_factura),
+    FOREIGN KEY (producto_ID) REFERENCES Producto(ID)
+);

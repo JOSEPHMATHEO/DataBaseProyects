@@ -1,0 +1,10 @@
+FUNCIONES DE ALTO ORDEN
+
+- Se puede asignar a una variable
+- Enviar como parametro
+- es devuelta por otra funcioN
+
+Max by, Min by, for all 
+
+
+Funcion con un parametro 

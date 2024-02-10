@@ -1,0 +1,128 @@
+DROP DATABASE IF EXISTS Proyectos;
+CREATE DATABASE Proyectos;
+
+USE Proyectos;
+
+CREATE TABLE Proyectos (
+
+    ProyectoID INT AUTO_INCREMENT PRIMARY KEY,
+    Nombre VARCHAR(255) NOT NULL,
+    PresupuestoTotal DECIMAL(10, 2) NOT NULL,
+    ProgramaFinanciamiento VARCHAR(255),
+    FechaInicio DATE NOT NULL,
+    FechaFinalizacion DATE NOT NULL,
+    Descripcion TEXT
+);
+
+
+CREATE TABLE Publicaciones (
+    CodigoUnico int PRIMARY KEY NOT NULL,
+    Titulo VARCHAR(255) NOT NULL,
+    Tipo ENUM('Revista', 'Congreso') NOT NULL
+);
+
+CREATE TABLE Profesores (
+    ProfesorID INT PRIMARY KEY,
+    Nombre VARCHAR(255) NOT NULL,
+    Apellidos VARCHAR(255) NOT NULL,
+    Despacho VARCHAR(255),
+    Telefono VARCHAR(20),
+    Tipo ENUM('Doctor', 'No Doctor') NOT NULL,
+    publicaciones INT NOT NULL,
+    FOREIGN KEY (publicaciones) REFERENCES Publicaciones(CodigoUnico) 
+);
+
+CREATE TABLE Supervision (
+    ProfesorNoDoctorID INT,
+    ProfesorDoctorID INT,
+    FechaInicio DATE NOT NULL,
+    FechaFin DATE,
+    PRIMARY KEY (ProfesorNoDoctorID, ProfesorDoctorID, FechaInicio),
+    FOREIGN KEY (ProfesorNoDoctorID) REFERENCES Profesores(ProfesorID),
+    FOREIGN KEY (ProfesorDoctorID) REFERENCES Profesores(ProfesorID)
+);
+
+
+CREATE TABLE TrabajoProyectos (
+    ProfesorID INT,
+    ProyectoID INT,
+    FechaInicio DATE NOT NULL,
+    FechaFin DATE,
+    PRIMARY KEY (ProfesorID, ProyectoID, FechaInicio),
+    FOREIGN KEY (ProfesorID) REFERENCES Profesores(ProfesorID),
+    FOREIGN KEY (ProyectoID) REFERENCES Proyectos(ProyectoID)
+);
+
+
+CREATE TABLE InvestigadorPrincipal (
+    ProyectoID INT,
+    ProfesorID INT,
+    PRIMARY KEY (ProyectoID),
+    FOREIGN KEY (ProyectoID) REFERENCES Proyectos(ProyectoID),
+    FOREIGN KEY (ProfesorID) REFERENCES Profesores(ProfesorID)
+);
+
+CREATE TABLE PublicacionesRevistas (
+    CodigoUnico INT PRIMARY KEY,
+    Volumen INT,
+    Numero INT,
+    PaginaInicio INT,
+    PaginaFin INT,
+    FOREIGN KEY (CodigoUnico) REFERENCES Publicaciones(CodigoUnico)
+);
+
+
+CREATE TABLE PublicacionesCongresos (
+    CodigoUnico INT PRIMARY KEY,
+    TipoCongreso VARCHAR(255),
+    Ciudad VARCHAR(255),
+    Pais VARCHAR(255),
+    FechaInicio DATE,
+    FechaFin DATE,
+    Editorial VARCHAR(255),
+    FOREIGN KEY (CodigoUnico) REFERENCES Publicaciones(CodigoUnico)
+);
+
+INSERT INTO Proyectos (Nombre, PresupuestoTotal, ProgramaFinanciamiento, FechaInicio, FechaFinalizacion, Descripcion)
+VALUES
+    ('Proyecto 1', 100000.00, 'Programa A', '2023-01-01', '2023-12-31', 'Proyecto dificil'),
+    ('Proyecto 2', 75000.50, 'Programa B', '2023-02-15', '2023-11-30', 'Proyecto dificil 2'),
+    ('Proyecto 3', 50000.75, 'Programa C', '2023-03-10', '2023-10-15', 'Proyecto dificil 3 ');
+
+INSERT INTO Publicaciones (CodigoUnico, Titulo, Tipo)
+VALUES
+    (1, 'Programacion', 'Revista'),
+    (2, 'Base De Datos', 'Revista'),
+    (3, 'Introduccion de Programcion', 'Congreso');
+
+INSERT INTO Profesores (ProfesorID, Nombre, Apellidos, Despacho, Telefono, Tipo, publicaciones)
+VALUES
+    (1, 'Rene', 'Elizade', 'Despacho 101', '123-456-7890', 'Doctor', 1),
+    (2, 'Angel', 'Encalada', 'Despacho 102', '987-654-3210', 'No Doctor', 2),
+    (3, 'Eduardo', 'Encalada', 'Despacho 103', '555-888-9999', 'Doctor', 3);
+
+INSERT INTO Supervision (ProfesorNoDoctorID, ProfesorDoctorID, FechaInicio, FechaFin)
+VALUES
+    (2, 1, '2023-03-01', '2023-05-31'),
+    (3, 1, '2023-06-01', '2023-08-31');
+
+INSERT INTO TrabajoProyectos (ProfesorID, ProyectoID, FechaInicio, FechaFin)
+VALUES
+    (1, 1, '2023-01-15', '2023-04-30'),
+    (2, 2, '2023-02-20', '2023-09-15'),
+    (3, 3, '2023-03-25', '2023-10-10');
+
+INSERT INTO InvestigadorPrincipal (ProyectoID, ProfesorID)
+VALUES
+    (1, 1),
+    (2, 2),
+    (3, 3);
+
+INSERT INTO PublicacionesRevistas (CodigoUnico, Volumen, Numero, PaginaInicio, PaginaFin)
+VALUES
+    (1, 10, 1, 5, 20),
+    (2, 8, 2, 15, 30);
+
+INSERT INTO PublicacionesCongresos (CodigoUnico, TipoCongreso, Ciudad, Pais, FechaInicio, FechaFin, Editorial)
+VALUES
+    (3, 'Congreso Internacional', 'Loja', 'Ecuador', '2023-07-15', '2023-07-20', 'Editorial Congreso');

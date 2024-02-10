@@ -1,0 +1,128 @@
+dbms,TABLE_SCHEMA,TABLE_NAME,COLUMN_NAME,ORDINAL_POSITION,DATA_TYPE,CHARACTER_MAXIMUM_LENGTH,CONSTRAINT_TYPE,REFERENCED_TABLE_SCHEMA,REFERENCED_TABLE_NAME,REFERENCED_COLUMN_NAME
+mysql,cursosformacion,alumnocurso,codigoEdicion,2,int,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,cursosformacion,alumnocurso,codigoEdicion,2,int,NULL,"FOREIGN KEY",cursosformacion,edicioncurso,codigoEdicion
+mysql,cursosformacion,alumnocurso,codigoEmpleado,1,int,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,cursosformacion,alumnocurso,codigoEmpleado,1,int,NULL,"FOREIGN KEY",cursosformacion,empleado,codigoEmpleado
+mysql,cursosformacion,curso,codigoCurso,1,int,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,cursosformacion,curso,coste,5,decimal,NULL,NULL,NULL,NULL,NULL
+mysql,cursosformacion,curso,descripcion,3,text,65535,NULL,NULL,NULL,NULL
+mysql,cursosformacion,curso,horasDuracion,4,int,NULL,NULL,NULL,NULL,NULL
+mysql,cursosformacion,curso,nombre,2,varchar,255,NULL,NULL,NULL,NULL
+mysql,cursosformacion,edicioncurso,codigoCurso,2,int,NULL,"FOREIGN KEY",cursosformacion,curso,codigoCurso
+mysql,cursosformacion,edicioncurso,codigoEdicion,1,int,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,cursosformacion,edicioncurso,fechaInicio,4,date,NULL,NULL,NULL,NULL,NULL
+mysql,cursosformacion,edicioncurso,horario,5,varchar,50,NULL,NULL,NULL,NULL
+mysql,cursosformacion,edicioncurso,lugar,3,varchar,255,NULL,NULL,NULL,NULL
+mysql,cursosformacion,empleado,apellidos,3,varchar,50,NULL,NULL,NULL,NULL
+mysql,cursosformacion,empleado,capacitado,10,tinyint,NULL,NULL,NULL,NULL,NULL
+mysql,cursosformacion,empleado,codigoEmpleado,1,int,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,cursosformacion,empleado,direccion,4,varchar,255,NULL,NULL,NULL,NULL
+mysql,cursosformacion,empleado,fechaNacimiento,7,date,NULL,NULL,NULL,NULL,NULL
+mysql,cursosformacion,empleado,nacionalidad,8,varchar,50,NULL,NULL,NULL,NULL
+mysql,cursosformacion,empleado,NIF,6,varchar,15,NULL,NULL,NULL,NULL
+mysql,cursosformacion,empleado,nombre,2,varchar,50,NULL,NULL,NULL,NULL
+mysql,cursosformacion,empleado,salario,9,decimal,NULL,NULL,NULL,NULL,NULL
+mysql,cursosformacion,empleado,telefono,5,varchar,15,NULL,NULL,NULL,NULL
+mysql,cursosformacion,impartecurso,codigoEdicion,2,int,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,cursosformacion,impartecurso,codigoEdicion,2,int,NULL,"FOREIGN KEY",cursosformacion,edicioncurso,codigoEdicion
+mysql,cursosformacion,impartecurso,codigoEmpleado,1,int,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,cursosformacion,impartecurso,codigoEmpleado,1,int,NULL,"FOREIGN KEY",cursosformacion,empleado,codigoEmpleado
+mysql,cursosformacion,prerrequisito,cursoPredecesor,1,int,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,cursosformacion,prerrequisito,cursoPredecesor,1,int,NULL,"FOREIGN KEY",cursosformacion,curso,codigoCurso
+mysql,cursosformacion,prerrequisito,cursoSucesor,2,int,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,cursosformacion,prerrequisito,cursoSucesor,2,int,NULL,"FOREIGN KEY",cursosformacion,curso,codigoCurso
+mysql,cursosformacion,prerrequisito,tipoPrerrequisito,3,enum,12,NULL,NULL,NULL,NULL
+mysql,fabricapelotas,planta,Color,1,varchar,50,"PRIMARY KEY",NULL,NULL,NULL
+mysql,fabricapelotas,planta,Proceso,3,varchar,50,NULL,NULL,NULL,NULL
+mysql,fabricapelotas,planta,Superficie,2,decimal,NULL,NULL,NULL,NULL,NULL
+mysql,gestionventas,categoria,descripcion,3,text,65535,NULL,NULL,NULL,NULL
+mysql,gestionventas,categoria,ID,1,int,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,gestionventas,categoria,nombre,2,varchar,255,NULL,NULL,NULL,NULL
+mysql,gestionventas,cliente,CUIT,1,varchar,15,"PRIMARY KEY",NULL,NULL,NULL
+mysql,gestionventas,cliente,direccion,3,int,NULL,"FOREIGN KEY",gestionventas,direccioncl,ID
+mysql,gestionventas,cliente,nombre,2,varchar,255,NULL,NULL,NULL,NULL
+mysql,gestionventas,contacto,cliente_CUIT,3,varchar,15,"FOREIGN KEY",gestionventas,cliente,CUIT
+mysql,gestionventas,contacto,id,1,int,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,gestionventas,contacto,telefono,2,varchar,15,NULL,NULL,NULL,NULL
+mysql,gestionventas,detalleventa,cantidad_vendida,3,int,NULL,NULL,NULL,NULL,NULL
+mysql,gestionventas,detalleventa,id,1,int,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,gestionventas,detalleventa,monto_total,4,decimal,NULL,NULL,NULL,NULL,NULL
+mysql,gestionventas,detalleventa,precio_venta,2,decimal,NULL,NULL,NULL,NULL,NULL
+mysql,gestionventas,detalleventa,producto_ID,6,int,NULL,"FOREIGN KEY",gestionventas,producto,ID
+mysql,gestionventas,detalleventa,venta_numero_factura,5,int,NULL,"FOREIGN KEY",gestionventas,venta,numero_factura
+mysql,gestionventas,direccioncl,calle,2,varchar,255,NULL,NULL,NULL,NULL
+mysql,gestionventas,direccioncl,ciudad,5,varchar,255,NULL,NULL,NULL,NULL
+mysql,gestionventas,direccioncl,comuna,4,varchar,255,NULL,NULL,NULL,NULL
+mysql,gestionventas,direccioncl,ID,1,int,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,gestionventas,direccioncl,numero,3,int,NULL,NULL,NULL,NULL,NULL
+mysql,gestionventas,direccionpr,calle,2,varchar,255,NULL,NULL,NULL,NULL
+mysql,gestionventas,direccionpr,ciudad,5,varchar,255,NULL,NULL,NULL,NULL
+mysql,gestionventas,direccionpr,comuna,4,varchar,255,NULL,NULL,NULL,NULL
+mysql,gestionventas,direccionpr,ID,1,int,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,gestionventas,direccionpr,numero,3,int,NULL,NULL,NULL,NULL,NULL
+mysql,gestionventas,producto,categoria_ID,6,int,NULL,"FOREIGN KEY",gestionventas,categoria,ID
+mysql,gestionventas,producto,ID,1,int,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,gestionventas,producto,nombre,2,varchar,255,NULL,NULL,NULL,NULL
+mysql,gestionventas,producto,precio_actual,3,decimal,NULL,NULL,NULL,NULL,NULL
+mysql,gestionventas,producto,proveedor_CUIT,5,varchar,15,"FOREIGN KEY",gestionventas,proveedor,CUIT
+mysql,gestionventas,producto,stock,4,int,NULL,NULL,NULL,NULL,NULL
+mysql,gestionventas,proveedor,CUIT,1,varchar,15,"PRIMARY KEY",NULL,NULL,NULL
+mysql,gestionventas,proveedor,direccion_id,5,int,NULL,"FOREIGN KEY",gestionventas,direccionpr,ID
+mysql,gestionventas,proveedor,nombre,2,varchar,255,NULL,NULL,NULL,NULL
+mysql,gestionventas,proveedor,pagina_web,4,varchar,255,NULL,NULL,NULL,NULL
+mysql,gestionventas,proveedor,telefono,3,varchar,15,NULL,NULL,NULL,NULL
+mysql,gestionventas,venta,cliente_CUIT,3,varchar,15,"FOREIGN KEY",gestionventas,cliente,CUIT
+mysql,gestionventas,venta,descuento,4,decimal,NULL,NULL,NULL,NULL,NULL
+mysql,gestionventas,venta,fecha,2,date,NULL,NULL,NULL,NULL,NULL
+mysql,gestionventas,venta,monto_final,5,decimal,NULL,NULL,NULL,NULL,NULL
+mysql,gestionventas,venta,numero_factura,1,int,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,proyectos,investigadorprincipal,ProfesorID,2,int,NULL,"FOREIGN KEY",proyectos,profesores,ProfesorID
+mysql,proyectos,investigadorprincipal,ProyectoID,1,int,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,proyectos,investigadorprincipal,ProyectoID,1,int,NULL,"FOREIGN KEY",proyectos,proyectos,ProyectoID
+mysql,proyectos,profesores,Apellidos,3,varchar,255,NULL,NULL,NULL,NULL
+mysql,proyectos,profesores,Despacho,4,varchar,255,NULL,NULL,NULL,NULL
+mysql,proyectos,profesores,Nombre,2,varchar,255,NULL,NULL,NULL,NULL
+mysql,proyectos,profesores,ProfesorID,1,int,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,proyectos,profesores,publicaciones,7,int,NULL,"FOREIGN KEY",proyectos,publicaciones,CodigoUnico
+mysql,proyectos,profesores,Telefono,5,varchar,20,NULL,NULL,NULL,NULL
+mysql,proyectos,profesores,Tipo,6,enum,9,NULL,NULL,NULL,NULL
+mysql,proyectos,proyectos,Descripcion,7,text,65535,NULL,NULL,NULL,NULL
+mysql,proyectos,proyectos,FechaFinalizacion,6,date,NULL,NULL,NULL,NULL,NULL
+mysql,proyectos,proyectos,FechaInicio,5,date,NULL,NULL,NULL,NULL,NULL
+mysql,proyectos,proyectos,Nombre,2,varchar,255,NULL,NULL,NULL,NULL
+mysql,proyectos,proyectos,PresupuestoTotal,3,decimal,NULL,NULL,NULL,NULL,NULL
+mysql,proyectos,proyectos,ProgramaFinanciamiento,4,varchar,255,NULL,NULL,NULL,NULL
+mysql,proyectos,proyectos,ProyectoID,1,int,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,proyectos,publicaciones,CodigoUnico,1,int,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,proyectos,publicaciones,Tipo,3,enum,8,NULL,NULL,NULL,NULL
+mysql,proyectos,publicaciones,Titulo,2,varchar,255,NULL,NULL,NULL,NULL
+mysql,proyectos,publicacionescongresos,Ciudad,3,varchar,255,NULL,NULL,NULL,NULL
+mysql,proyectos,publicacionescongresos,CodigoUnico,1,int,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,proyectos,publicacionescongresos,CodigoUnico,1,int,NULL,"FOREIGN KEY",proyectos,publicaciones,CodigoUnico
+mysql,proyectos,publicacionescongresos,Editorial,7,varchar,255,NULL,NULL,NULL,NULL
+mysql,proyectos,publicacionescongresos,FechaFin,6,date,NULL,NULL,NULL,NULL,NULL
+mysql,proyectos,publicacionescongresos,FechaInicio,5,date,NULL,NULL,NULL,NULL,NULL
+mysql,proyectos,publicacionescongresos,Pais,4,varchar,255,NULL,NULL,NULL,NULL
+mysql,proyectos,publicacionescongresos,TipoCongreso,2,varchar,255,NULL,NULL,NULL,NULL
+mysql,proyectos,publicacionesrevistas,CodigoUnico,1,int,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,proyectos,publicacionesrevistas,CodigoUnico,1,int,NULL,"FOREIGN KEY",proyectos,publicaciones,CodigoUnico
+mysql,proyectos,publicacionesrevistas,Numero,3,int,NULL,NULL,NULL,NULL,NULL
+mysql,proyectos,publicacionesrevistas,PaginaFin,5,int,NULL,NULL,NULL,NULL,NULL
+mysql,proyectos,publicacionesrevistas,PaginaInicio,4,int,NULL,NULL,NULL,NULL,NULL
+mysql,proyectos,publicacionesrevistas,Volumen,2,int,NULL,NULL,NULL,NULL,NULL
+mysql,proyectos,supervision,FechaFin,4,date,NULL,NULL,NULL,NULL,NULL
+mysql,proyectos,supervision,FechaInicio,3,date,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,proyectos,supervision,ProfesorDoctorID,2,int,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,proyectos,supervision,ProfesorDoctorID,2,int,NULL,"FOREIGN KEY",proyectos,profesores,ProfesorID
+mysql,proyectos,supervision,ProfesorNoDoctorID,1,int,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,proyectos,supervision,ProfesorNoDoctorID,1,int,NULL,"FOREIGN KEY",proyectos,profesores,ProfesorID
+mysql,proyectos,trabajoproyectos,FechaFin,4,date,NULL,NULL,NULL,NULL,NULL
+mysql,proyectos,trabajoproyectos,FechaInicio,3,date,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,proyectos,trabajoproyectos,ProfesorID,1,int,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,proyectos,trabajoproyectos,ProfesorID,1,int,NULL,"FOREIGN KEY",proyectos,profesores,ProfesorID
+mysql,proyectos,trabajoproyectos,ProyectoID,2,int,NULL,"PRIMARY KEY",NULL,NULL,NULL
+mysql,proyectos,trabajoproyectos,ProyectoID,2,int,NULL,"FOREIGN KEY",proyectos,proyectos,ProyectoID
+mysql,sys,sys_config,set_by,4,varchar,128,NULL,NULL,NULL,NULL
+mysql,sys,sys_config,set_time,3,timestamp,NULL,NULL,NULL,NULL,NULL
+mysql,sys,sys_config,value,2,varchar,128,NULL,NULL,NULL,NULL
+mysql,sys,sys_config,variable,1,varchar,128,"PRIMARY KEY",NULL,NULL,NULL

@@ -1,0 +1,38 @@
+Aquí están las expresiones relacionales para las consultas basadas en el esquema de la base de datos de la biblioteca mostrado en la Figura 8.14 del PDF:
+ 
+a) π count(*) (σ title='The Lost Tribe' ∧ branch_name='Sharpstown'(BOOK_COPIES * Copy))
+
+b) π title, branch_name, count(*) (σ title='The Lost Tribe' (BOOK_COPIES * Copy))
+
+
+c) π borrower_name (BORROWER) - π borrower_name (LOAN)
+
+
+d) π BOOK.title, BORROWER.name, BORROWER.address (σ BOOK.branch_name='Sharpstown' ∧ LOAN.due_date=today (BOOK ✶ BOOK_COPIES ✶ COPY ✶ LOAN ✶ BORROWER))
+
+
+e) π branch_name, count(*) (BOOK_LOANS ✶ COPY ✶ BOOK_COPIES)
+
+
+f) π BORROWER.name, BORROWER.address, count(*) (BORROWER ✶ BOOK_LOANS)
+  
+BORROWNERR ← (( BORROWNER) ⋈ Card_no = Card_no
+(Book_id > 5) (BOOK_LOANS))
+RESULT ← (π Name, Address, COUNT (Book_id)(
+BORROWNERR)))
+
+g) π BOOK.title, count(*) (σ author='Stephen King' (BOOK ✶ BOOK_COPIES) ✶ (σ branch_name='Central' COPY))
+
+
+
+
+
+a) π FLIGHT.flight_number, FLIGHT_LEG.departure_airport_code, FLIGHT_LEG.arrival_airport_code (FLIGHT ⋈ FLIGHT_LEG)
+
+b) π FLIGHT.flight_number, FLIGHT.weekdays (σ FLIGHT_LEG.departure_airport_code='iah' ∧ FLIGHT_LEG.arrival_airport_code='lax' (FLIGHT ⋈ FLIGHT_LEG))
+
+c) π FLIGHT.flight_number, FLIGHT_LEG.departure_airport_code, FLIGHT_LEG.scheduled_departure_time, FLIGHT_LEG.arrival_airport_code, FLIGHT_LEG.scheduled_arrival_time, FLIGHT.weekdays (σ FLIGHT_LEG.departure_airport_code IN (SELECT airport_code FROM AIRPORT WHERE city='Houston') ∧ FLIGHT_LEG.arrival_airport_code IN (SELECT airport_code FROM AIRPORT WHERE city='Los Angeles') (FLIGHT ⋈ FLIGHT_LEG))
+
+d) π FARE.amount, FARE.restrictions (σ FLIGHT.flight_number='co197' (FLIGHT ⋈ FARE))  
+
+e) π LEG_INSTANCE.number_of_available_seats (σ FLIGHT.flight_number='co197' ∧ LEG_INSTANCE.date='2009-10-09' (FLIGHT ⋈ LEG_INSTANCE))
