@@ -1,0 +1,41 @@
+Ejercicio 1:
+En una tabla Empleados con campos ID_Empleado, Nombre, ID_Departamento, Nombre_Departamento y Ubicación_Departamento. Determina si existen dependencias funcionales transitivas entre estos atributos.
+
+1. Id_Empleado -> Nombre 
+2. ID_Departamento -> Nombre_Departamento y Ubicación_Departamento 
+
+============================================================================================================================================================================================
+
+Ejercicio 2:
+Considera una tabla Productos que tiene ID_Producto, Nombre_Producto, ID_Categoría, Nombre_Categoría y Descripción_Categoría. Analiza si hay dependencias funcionales transitivas entre los atributos.
+
+1. ID_Producto ->  Nombre_Producto
+2. ID_Categoría-> Nombre_Categoría, Descripción_Categoría
+ID_Producto -> ID_Categoría-> Nombre_Categoría
+
+============================================================================================================================================================================================
+
+Ejercicio 3:
+En una base de datos de una universidad, analiza una tabla Cursos con ID_Curso, Nombre_Curso, ID_Departamento, Nombre_Departamento y Decano_Departamento. Identifica si existen dependencias funcionales transitivas.
+
+1. ID_Curso -> Nombre_Curso 
+2. ID_Departamento-> Nombre_Departamento, Decano_Departamento.
+ID_Curso -> ID_Departamento-> Decano_Departamento
+
+============================================================================================================================================================================================
+
+Ejercicio 4:
+Para una tabla Clientes en un sistema CRM, que contiene ID_Cliente, Nombre_Cliente, ID_Region, Nombre_Region y Población_Region. Determina si hay dependencias funcionales transitivas entre estos campos.
+
+1. ID_Cliente -> Nombre_Cliente 
+2. ID_Region -> Nombre_Region, Población_Region
+ID_Cliente -> ID_Region -> Población_Region
+
+============================================================================================================================================================================================
+
+Ejercicio 5:
+En una base de datos de un hospital, tienes una tabla Pacientes con ID_Paciente, Nombre_Paciente, ID_Doctor, Nombre_Doctor y Especialidad_Doctor. Evalúa si existen dependencias funcionales transitivas entre los atributos.
+
+1. ID_Paciente -> Nombre_Paciente 
+2. ID_Doctor -> Nombre_Doctor, Especialidad_Doctor
+ID_Paciente ->  ID_Doctor -> Especialidad_Doctor
